@@ -55,7 +55,9 @@ int main()
 
     g_comm.println("Debug 1");
 
-    setLedColor(true, false, false);
+    setLedColor(true, true, true);
+		//DELAY(1500);
+		setLedColor(true, false, false);
 		
 
 /*
