@@ -27,9 +27,9 @@ namespace mb {
 class CommunicationModuleMCU : public CommunicationModule
 {
 private:
-    static constexpr size_t BUFFER_SIZE = 64; // Size of the local buffer.
-    char buffer[BUFFER_SIZE];                 // Local buffer for received data.
-    volatile bool dataReady = false;          // Flag indicating new data availability.
+    static constexpr size_t BUFFER_SIZE = 64; /**< Size of the local buffer. */
+    char buffer[BUFFER_SIZE];                 /**< Local buffer for received data. */
+    volatile bool dataReady = false;          /**< Flag indicating new data availability. */
 
 public:
     /**
@@ -71,10 +71,8 @@ public:
      * @param c Received character.
      */
     void onCharReceived(char c);
-
-private:
-    // Additional private helper methods may be placed here if needed.
+		
 };
 
-} //End of namespace mb
+} // End of namespace mb
 #endif // COMMUNICATION_MODULE_MCU_HPP

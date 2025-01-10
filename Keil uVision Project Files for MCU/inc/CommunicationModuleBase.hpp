@@ -18,24 +18,24 @@
 class CommunicationModule
 {
 protected:
-		//System commands
+		// System commands
     inline static constexpr const char* PING              	= "ping";
     inline static constexpr const char* RESET             	= "reset";
     inline static constexpr const char* GET_SYSTEM_INFO   	= "readinfo";
 
-		//Temperature command
+		// Temperature command
     inline static constexpr const char* READ_TEMPERATURE  	= "readtemp";
 
-		//TSI commands
+		// TSI commands
     inline static constexpr const char* READ_TOUCH        	= "readtouch";
     inline static constexpr const char* SET_TOUCH         	= "settouch";
 
-		//Led control commands
+		// Led control commands
     inline static constexpr const char* SET_LED_COLOR_RED 	= "setledcolorred";
     inline static constexpr const char* SET_LED_COLOR_GREEN = "setledcolorgreen";
     inline static constexpr const char* SET_LED_COLOR_BLUE  = "setledcolorblue";
 
-		//Accelerometer command
+		// Accelerometer command
     inline static constexpr const char* READ_ACCELERATION   = "readaccel";
 
 public:

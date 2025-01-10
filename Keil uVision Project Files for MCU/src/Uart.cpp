@@ -26,26 +26,51 @@ Uart::Uart() : Uart(9600, nullptr)
 
 Uart::Uart(uint32_t baud, CommunicationModuleMCU* obj) : baudRate(baud)
 {
+		// Store the pointer to the communication handler object
     g_commObject = obj;
+
+    // Update the system clock frequency to ensure correct timing for peripherals (after changes I made to #define CLOCK_SETUP 1)
     SystemCoreClockUpdate();
 
+    // Enable clock for UART0 module
     SIM->SCGC4 |= SIM_SCGC4_UART0_MASK;
-    SIM->SCGC5 |= SIM_SCGC5_PORTB_MASK;
-    SIM->SOPT2 |= (1u << 26); // Select MCGFLLCLK as UART0 source
 
+    // Enable clock for Port B (used for UART0 TX and RX pins)
+    SIM->SCGC5 |= SIM_SCGC5_PORTB_MASK;
+
+    // Select MCGFLLCLK as the clock source for UART0
+    SIM->SOPT2 |= (1u << 26);
+
+    // Configure Port B pins for UART0 functionality:
+    // PTB1 is used for UART0_TX (alternate function 2)
     PORTB->PCR[1] = PORT_PCR_MUX(2);
+
+    // PTB2 is used for UART0_RX (alternate function 2)
     PORTB->PCR[2] = PORT_PCR_MUX(2);
 
+    // Disable the UART transmitter and receiver before making changes
     UART0->C2 &= ~(UART0_C2_TE_MASK | UART0_C2_RE_MASK);
 
+    // Calculate the baud rate divisor:
+    // UART baud rate = Clock frequency / (16 * divisor)
     uint32_t divisor = 48000000u / (16u * baudRate);
-    UART0->BDH = (uint8_t)((divisor >> 8) & 0x1F);
-    UART0->BDL = (uint8_t)(divisor & 0xFF);
-    UART0->C4  = 0x0F;
 
+    // Set the upper 5 bits of the divisor in the BDH register
+    UART0->BDH = (uint8_t)((divisor >> 8) & 0x1F);
+
+    // Set the lower 8 bits of the divisor in the BDL register
+    UART0->BDL = (uint8_t)(divisor & 0xFF);
+
+    // Set fine-tuning value for the baud rate (optional adjustment)
+    UART0->C4 = 0x0F;
+
+    // Enable UART receive interrupt (RIE)
     UART0->C2 |= UART0_C2_RIE_MASK;
+
+    // Enable the UART transmitter (TE) and receiver (RE)
     UART0->C2 |= (UART0_C2_TE_MASK | UART0_C2_RE_MASK);
 
+    // Enable UART0 interrupt in the Nested Vector Interrupt Controller (NVIC)
     NVIC_EnableIRQ(UART0_IRQn);
 }
 

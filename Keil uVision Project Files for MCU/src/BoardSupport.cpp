@@ -220,7 +220,7 @@ namespace I2C
         i2c_disable();
         return error;
     }
-} // namespace I2C
+} // End of namespace I2C
 
 /* =========================================
  * TSI (Touch Sensing) Functions

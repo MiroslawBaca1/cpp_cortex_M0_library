@@ -83,7 +83,7 @@ private:
      */
     static void handleIRQ();
 
-    friend void UART0_IRQHandler(void);  /**< Allows the IRQ handler to invoke handleIRQ(). */
+    friend void ::UART0_IRQHandler(); // Allows the global IRQ handler to invoke private handleIRQ().
 };
 } // End of namespace mb
 #endif // UART_HPP

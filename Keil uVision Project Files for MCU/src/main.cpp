@@ -19,10 +19,22 @@ extern "C" {
 #include "../inc/Uart.hpp"
 #include "../inc/CommunicationModuleMCU.hpp"
 
+/* =============== IMPORTANT NOTES ===============
+ * In this project, I made the following changes in system_MKL05Z4.c file:
+ *
+ * Updated Stack_Size:      
+ * EQU     0x0400  
+ * (Original value: 0x00000100)
+ *
+ * Modified clock setup:      
+ * #define CLOCK_SETUP 1
+ * (Original value: 0)
+ * ===============================================
+ */
+
 int main()
 {
-    // The stack size has been increased in the linker script to 0x0400.
-    // The clock setup is also configured to 1 for this project.
+
 
 		mb::CommunicationModuleMCU comm_obj;
 		mb::Uart start(9600, &comm_obj);
