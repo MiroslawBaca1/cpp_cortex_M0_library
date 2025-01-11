@@ -31,7 +31,7 @@ SerialPort::SerialPort(const char *portName, int baudRate) // Added baudRate - M
     }
     else
     {
-        DCB dcbSerialParameters = {0};
+        DCB dcbSerialParameters = {}; // Fixed implicit initialization - Miroslaw Baca
 
         if (!GetCommState(this->handler, &dcbSerialParameters))
         {
