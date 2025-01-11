@@ -79,7 +79,7 @@ void CommunicationModuleMCU::handleCommand(const char* cmd)
     {
         uint8_t sliderVal = TSI_ReadSlider();
         char txt[15];
-        std::sprintf(txt, "Slider = %u\r\n", sliderVal);
+        std::sprintf(txt, "Slider = %u\r", sliderVal);
         println(txt);
     }
     else if (std::strcmp(cmd, SET_TOUCH) == 0)
