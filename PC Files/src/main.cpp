@@ -13,31 +13,39 @@
 #include <iostream>
 
 int main() {
+    mb::Accelerometer TestObj1;
+    mb::Accelerometer TestObj2(2.0,1.3,7.0);
+    mb::Accelerometer TestObj3(TestObj2);
+
+    TestObj1.print();
+    TestObj2.print();
+    TestObj3.print();
+
+    std::cout<< TestObj1 + TestObj2 + TestObj3 << std::endl;
+    std::cout<< TestObj1 - TestObj2 - TestObj3 << std::endl;
+
+    if (TestObj2 == TestObj3) {
+        std::cout<< "TestObj2 == TestObj3" << std::endl;
+    }
+
+    if (TestObj2 <= TestObj3) {
+        std::cout<< "TestObj2 <= TestObj3" << std::endl;
+    }
+
+    if (TestObj2 >= TestObj3) {
+        std::cout<< "TestObj2 >= TestObj3" << std::endl;
+    }
+
+    if (TestObj1 != TestObj3) {
+        std::cout<< "TestObj1 != TestObj3" << std::endl;
+    }
+
+    if (TestObj1 < TestObj3) {
+        std::cout<< "TestObj1 < TestObj3" << std::endl;
+    }
+
     try {
         mb::CommunicationModulePC comm("COM6", 9600); // Initialize communication on COM6
-
-        mb::Accelerometer ObjShow;
-
-        std::cout << ObjShow << std::endl;
-
-        ObjShow.print();
-
-        std::cout << "d";
-
-
-        mb::Accelerometer ObjShow2(2.0,3.0,4.0);
-
-        ObjShow += ObjShow2;
-
-        ObjShow.print();
-
-        if (ObjShow2 >= ObjShow) {
-            std::cout << "2 is bigger" << std::endl;
-        }
-
-        std::cout << ObjShow2.magnitude() << std::endl;
-        std::cout << ObjShow.magnitude() << std::endl;
-
         std::string command;
         while (true) {
             std::cout << "> ";

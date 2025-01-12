@@ -44,11 +44,34 @@ namespace mb {
         Accelerometer(float x, float y, float z) : x(x), y(y), z(z) {}
 
         /**
-         * @brief Parses raw accelerometer data and scales it to g units.
-         * @param rawData Vector containing 6 bytes of raw data.
-         * @return True if parsing was successful, otherwise false.
+         * @brief Copy constructor initializing acceleration by copying of the another Accelerometer objet.
+         * @param other The Accelerometer object to copy from.
          */
-        bool parseRawData(const std::vector<uint8_t> &rawData);
+        Accelerometer(const Accelerometer& other) : x(other.x), y(other.y), z(other.z) {}
+
+        /**
+         * @brief Sets the X-asis acceleration.
+         * @param x_val New value of X-axis acceleration.
+         */
+        void setX(float x_val) {
+            x=x_val;
+        }
+
+        /**
+         * @brief Sets the Y-asis acceleration.
+         * @param y_val New value of Y-axis acceleration.
+         */
+        void setY(float y_val) {
+            y=y_val;
+        }
+
+        /**
+         * @brief Sets the Z-asis acceleration.
+         * @param z_val New value of Z-axis acceleration.
+         */
+        void setZ(float z_val) {
+            z=z_val;
+        }
 
         /**
          * @brief Returns the X-axis acceleration.
@@ -67,6 +90,13 @@ namespace mb {
          * @return Z-axis acceleration in g.
          */
         float getZ() const { return z; }
+
+        /**
+         * @brief Parses raw accelerometer data and scales it to g units.
+         * @param rawData Vector containing 6 bytes of raw data.
+         * @return True if parsing was successful, otherwise false.
+         */
+        bool parseRawData(const std::vector<uint8_t> &rawData);
 
         /**
          * @brief Prints the accelerometer values in a formatted manner.

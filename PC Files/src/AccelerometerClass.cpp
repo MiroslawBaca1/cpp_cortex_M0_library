@@ -76,10 +76,8 @@ namespace mb {
     }
 
     bool Accelerometer::operator<=(const Accelerometer &other) const {
-        //testy dokoncz
         constexpr float tolerance = 1e-5;
-
-        if (this->magnitude() < other.magnitude()) {
+        if (*this < other) {
             return true;
         } else if (std::fabs(this->magnitude() - other.magnitude()) <= tolerance) {
             return true;
@@ -94,16 +92,15 @@ namespace mb {
     }
 
     bool Accelerometer::operator>=(const Accelerometer& other) const {
-            // testy dokoncz
-        if (this->magnitude() > other.magnitude()) {
+        constexpr float tolerance = 1e-5;
+        if (*this > other) {
             return true;
+
+        } else if (std::fabs(this->magnitude() - other.magnitude()) <= tolerance) {
+            return true;
+        } else {
+            return false;
         }
-
-        constexpr float precision = 1e-5;
-
-        float diff = this->magnitude() - other.magnitude();
-        float roundedDiff = std::round(diff / precision) * precision;
-
 
     }
 
